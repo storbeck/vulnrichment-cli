@@ -4,10 +4,10 @@
 This tool fetches enriched CVE data directly from the CISA Vulnrichment GitHub repo. It can also generate a Markdown report for a given CVE.
 
 ## Setup
-1. **Build:**
-   ```bash
-   go build vulnrichment.go
-   ```
+Build:
+```bash
+go build vulnrichment.go
+```
 
 ## Usage
 Run the tool with a CVE ID to fetch data:
@@ -38,7 +38,7 @@ $ ./vulnrichment --report CVE-2015-2051
 ### Exploitation Status
 - Exploitation: N/A
 ```
-### Json
+### json
 ```bash
 $ ./vulnrichment CVE-2015-2051
 ```
