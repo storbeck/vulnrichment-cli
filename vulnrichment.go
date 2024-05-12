@@ -160,15 +160,8 @@ func parseCVE(cve string) (year string, id string, dir string, url string) {
 
 	year = parts[1]
 	id = parts[2]
-
-	if strings.HasPrefix(id, "1") {
-		dir = "1xxx"
-	} else if strings.HasPrefix(id, "2") {
-		dir = "2xxx"
-	} else {
-		fmt.Println("Unsupported CVE ID range. This example only supports IDs starting with 1 or 2.")
-		os.Exit(1)
-	}
+	firstNum := id[0]
+	dir = fmt.Sprintf("%cxxx", firstNum)
 
 	url = fmt.Sprintf("https://raw.githubusercontent.com/cisagov/vulnrichment/develop/%s/%s/%s.json", year, dir, cve)
 	return
