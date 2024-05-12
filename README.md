@@ -3,6 +3,8 @@
 ## What It Does
 This tool fetches enriched CVE data directly from the CISA Vulnrichment GitHub repo. It can also generate a Markdown report for a given CVE.
 
+![Report Preview](preview.png?raw=true "Report")
+
 ## Setup
 Build:
 ```bash
