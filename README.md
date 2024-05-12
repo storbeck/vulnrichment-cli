@@ -23,6 +23,8 @@ To generate a detailed report in Markdown format, use the `--report` flag:
 ### Report
 ```bash
 $ ./vulnrichment --report CVE-2015-2051
+```
+```markdown
 # CVE Report
 ## CVE ID: The D-Link DIR-645 Wired/Wireless Router Rev. Ax with firmware 1.04b12 and earlier allows remote attackers to execute arbitrary commands via a GetDeviceSettings action to the HNAP interface.
 ### Date Published: 2015-02-13T00:00:00
@@ -37,8 +39,10 @@ $ ./vulnrichment --report CVE-2015-2051
 - Exploitation: N/A
 ```
 ### Json
-```json
+```bash
 $ ./vulnrichment CVE-2015-2051
+```
+```json
 {
   "containers": {
     "cna": {
