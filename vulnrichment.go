@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -116,13 +117,25 @@ func main() {
 	reportFlag := flag.Bool("report", false, "Generate a detailed report in Markdown format")
 	flag.Parse()
 
+	var cve string
+
 	args := flag.Args()
-	if len(args) != 1 {
-		fmt.Println("Usage: ./vulnrichment [--report] CVE-YYYY-NNNN")
-		os.Exit(1)
+	if len(args) == 1 {
+		cve = args[0]
+	} else {
+		// If no arguments are provided, try to read from stdin
+		scanner := bufio.NewScanner(os.Stdin)
+		if scanner.Scan() {
+			cve = scanner.Text()
+		} else {
+			fmt.Println("Usage: ./vulnrichment [--report] CVE-YYYY-NNNN")
+			if scanner.Err() != nil {
+				fmt.Printf("Error reading from stdin: %v\n", scanner.Err())
+			}
+			os.Exit(1)
+		}
 	}
 
-	cve := args[0]
 	_, _, _, url := parseCVE(cve)
 
 	// Fetch the file content using HTTP GET
@@ -160,8 +173,7 @@ func parseCVE(cve string) (year string, id string, dir string, url string) {
 
 	year = parts[1]
 	id = parts[2]
-	firstNum := id[0]
-	dir = fmt.Sprintf("%cxxx", firstNum)
+	dir = fmt.Sprintf("%sxxx", id[:len(id)-3])
 
 	url = fmt.Sprintf("https://raw.githubusercontent.com/cisagov/vulnrichment/develop/%s/%s/%s.json", year, dir, cve)
 	return
